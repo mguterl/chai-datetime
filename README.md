@@ -1,7 +1,7 @@
 # chai-datetime
 
-Matchers for chai to help with common assertions against JavaScript
-Date objects.
+Matchers for chai to help with common date equality assertions against
+JavaScript Date objects.
 
 ## Usage
 
