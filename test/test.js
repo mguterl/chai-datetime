@@ -77,7 +77,48 @@ describe('chai-datetime', function() {
     });
 
     describe('equalDate', function() {
-      // TODO
+      beforeEach(function() {
+        this.subject = new Date(2013, 4, 30, 16, 5);
+        this.same = new Date(2013, 4, 30, 17);
+        this.different = new Date(2013, 4, 31);
+      });
+
+      describe('when given two date objects with the date values', function() {
+        it('passes', function() {
+          this.subject.should.be.equalDate(this.same);
+        });
+
+        describe('when negated', function() {
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.subject.should.not.be.equalDate(test.same);
+            }).should.fail(
+              'expected Thu May 30 2013 to not equal Thu May 30 2013'
+            );
+          });
+        });
+      });
+
+      describe('when given two date objects with different date values', function() {
+        it('fails', function() {
+          var test = this;
+
+          (function() {
+            test.subject.should.be.equalDate(test.different);
+          }).should.fail(
+            'expected Thu May 30 2013 to equal Fri May 31 2013'
+          );
+        });
+
+        describe('when negated', function() {
+          it('passes', function() {
+            this.subject.should.not.be.equalDate(this.different);
+          });
+        });
+      });
+
     });
   });
 });

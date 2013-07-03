@@ -29,4 +29,16 @@
       'expected ' + this._obj + ' to not equal ' + time
     );
   });
+
+  chai.Assertion.addChainableMethod('equalDate', function(date) {
+    var expectedDate  = date.toDateString(),
+    actualDate    = this._obj.toDateString();
+
+    return this.assert(
+      expectedDate === actualDate,
+      'expected ' + actualDate + ' to equal ' + expectedDate,
+      'expected ' + actualDate + ' to not equal ' + expectedDate
+    )
+  });
+
 }));
