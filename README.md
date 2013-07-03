@@ -3,6 +3,14 @@
 Matchers for chai to help with common date equality assertions against
 JavaScript Date objects.
 
+## Why?
+
+Comparing date objects in JavaScript is not based on value, which
+requires you to call getTime() to ensure the values match. These
+matchers remove the need to do that. Additionally when comparing
+getTime() values with the standard chai equality matcher you don't get
+very readable output because you're comparing epoch seconds.
+
 ## Usage
 
 ### Browser
