@@ -1,6 +1,6 @@
 {
   "name": "chai-datetime",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "keywords": ["chai", "testing", "jasmine"],
   "description": "date / time equality matchers for chai",
   "main": "chai-datetime.js",
