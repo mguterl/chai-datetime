@@ -13,6 +13,17 @@ matchers remove the need to do that. Additionally when comparing
 getTime() values with the standard chai equality matcher you don't get
 very readable output because you're comparing epoch seconds.
 
+### Better Error Messages
+
+Comparing date values for equality with getTime() gives unreadable
+error messages:
+
+    AssertionError: expected 1369944360000 to equal 1369944300000
+
+Use chai-datetime to get something easier to read:
+
+    AssertionError: expected Thu May 30 2013 16:06:00 GMT-0400 (EDT) to equal Thu May 30 2013 16:05:00 GMT-0400 (EDT)
+
 ## Usage
 
 ### Browser
