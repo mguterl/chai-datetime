@@ -3,6 +3,8 @@
 Matchers for chai to help with common date equality assertions against
 JavaScript Date objects.
 
+[![Build Status](https://travis-ci.org/gaslight/chai-datetime.png?branch=master)](https://travis-ci.org/gaslight/chai-datetime)
+
 ## Why?
 
 Comparing date objects in JavaScript is not based on value, which
