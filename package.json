@@ -1,0 +1,28 @@
+{
+  "name": "chai-datetime",
+  "version": "0.0.1",
+  "keywords": ["chai", "testing", "jasmine"],
+  "description": "date / time equality matchers for chai",
+  "main": "chai-datetime.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gaslight/chai-datetime.git"
+  },
+  "author": {
+    "name": "Michael Guterl",
+    "email": "michael@diminishing.org",
+    "url": "http://diminishing.org"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "~1.2.0",
+    "mocha": "~1.6.0",
+    "nodemon": "~0.6.23"
+  },
+  "dependencies": {
+    "chai": "~1.2.0",
+  }
+}
