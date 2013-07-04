@@ -140,5 +140,28 @@
 
       });
     });
+
+    describe('tdd alias', function() {
+      beforeEach(function() {
+        this.subject = new Date(2013, 4, 30, 16, 5);
+      });
+
+      it('.equalDate', function() {
+        assert.equalDate(this.subject, new Date(2013, 4, 30, 17));
+      });
+
+      it('.notEqualDate', function() {
+        assert.notEqualDate(this.subject, new Date(2013, 4, 31, 17));
+      });
+
+      it('.equalTime', function() {
+        assert.equalTime(this.subject, new Date(2013, 4, 30, 16, 5));
+      });
+
+      it('.notEqualTime', function() {
+        assert.notEqualTime(this.subject, new Date(2013, 4, 30, 16, 6));
+      });
+
+    });
   });
 }));

@@ -41,4 +41,23 @@
     )
   });
 
+  // Asserts
+  var assert = chai.assert;
+
+  assert.equalDate = function(val, exp, msg) {
+    new chai.Assertion(val, msg).to.be.equalDate(exp);
+  }
+
+  assert.notEqualDate = function(val, exp, msg) {
+    new chai.Assertion(val, msg).to.not.be.equalDate(exp);
+  }
+
+  assert.equalTime = function(val, exp, msg) {
+    new chai.Assertion(val, msg).to.be.equalTime(exp);
+  }
+
+  assert.notEqualTime = function(val, exp, msg) {
+    new chai.Assertion(val, msg).to.not.be.equalTime(exp);
+  }
+
 }));
