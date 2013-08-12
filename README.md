@@ -1,6 +1,6 @@
 # chai-datetime
 
-Matchers for chai to help with common date equality assertions against
+Matchers for chai to help with common date comparison assertions against
 JavaScript Date objects.
 
 [![Build Status](https://travis-ci.org/gaslight/chai-datetime.png?branch=master)](https://travis-ci.org/gaslight/chai-datetime)
@@ -42,39 +42,26 @@ chai.use(require('chai-datetime'));
 
 ## Assertions
 
-### equalTime
+There are a collection of assertions that work on times and dates. Any
+assertion that specifies date in the name only compares the date
+portion of the Date object.
 
-Value comparison for Date objects, including their time component.
+* equalTime
+* beforeTime
+* afterTime
+* equalDate
+* beforeDate
+* afterDate
 
-```javascript
-var subject = new Date(2013, 4, 30, 16, 5);
-
-subject.should.equalTime(new Date(2013, 4, 30, 16, 5));
-subject.should.not.equalTime(new Date(2013, 4, 30, 16, 6));
-
-expect(subject).to.equalTime(new Date(2013, 4, 30, 16, 5));
-expect(subject).not.to.equalTime(new Date(2013, 4, 30, 16, 6));
-
-assert.equalTime(subject, new Date(2013, 4, 30, 16, 5));
-assert.notEqualTime(subject, new Date(2013, 4, 30, 16, 6));
-```
-
-### equalDate
-
-Value comparison for Date objects, only comparing the date portion,
-ignoring the time.
+All assertions are defined for both the BDD and TDD syntaxes.
 
 ```javascript
-var subject = new Date(2013, 4, 30, 16, 5);
+var d1 = new Date(2013, 4, 30, 16, 5),
+    d2 = new Date(2013, 4, 30, 17);
 
-subject.should.equalDate(new Date(2013, 4, 30, 16, 6));
-subject.should.not.equalDate(new Date(2013, 4, 29, 16, 6));
-
-expect(subject).to.equalDate(new Date(2013, 4, 30, 16, 6));
-expect(subject).not.to.equalDate(new Date(2013, 4, 29, 16, 6));
-
-assert.equalTime(subject, new Date(2013, 4, 30, 16, 6));
-assert.notEqualTime(subject, new Date(2013, 4, 29, 16, 6));
+d1.should.equalDate.d2
+expect(d1).to.equalDate(d2)
+assert.equalDate(d1, d2)
 ```
 
 ## Thanks
