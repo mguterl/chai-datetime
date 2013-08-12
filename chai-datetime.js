@@ -1,14 +1,14 @@
 (function(plugin){
   if (
-    typeof require === "function"
-    && typeof exports === "object"
-    && typeof module === "object"
+    typeof require === "function" &&
+    typeof exports === "object" &&
+    typeof module === "object"
   ) {
     // NodeJS
     module.exports = plugin;
   } else if (
-    typeof define === "function"
-    && define.amd
+    typeof define === "function" &&
+    define.amd
   ) {
     // AMD
     define(function () {
@@ -23,11 +23,11 @@
 
   chai.datetime.formatDate = function(date) {
     return date.toDateString();
-  }
+  };
 
   chai.datetime.formatTime = function(time) {
     return time;
-  }
+  };
 
   chai.Assertion.addChainableMethod('equalTime', function(time) {
     var expected = time.getTime(),
@@ -96,50 +96,50 @@
 
   assert.equalDate = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.be.equalDate(exp);
-  }
+  };
 
   assert.notEqualDate = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.not.be.equalDate(exp);
-  }
+  };
 
   assert.beforeDate = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.be.beforeDate(exp);
-  }
+  };
 
   assert.notBeforeDate = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.not.be.beforeDate(exp);
-  }
+  };
 
   assert.afterDate = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.be.afterDate(exp);
-  }
+  };
 
   assert.notAfterDate = function(val, exp, msg) {
     new chai.Assertion(val, msg).not.to.be.afterDate(exp);
-  }
+  };
 
   assert.equalTime = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.be.equalTime(exp);
-  }
+  };
 
   assert.notEqualTime = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.not.be.equalTime(exp);
-  }
+  };
 
   assert.beforeTime = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.be.beforeTime(exp);
-  }
+  };
 
   assert.notBeforeTime = function(val, exp, msg) {
     new chai.Assertion(val, msg).not.to.be.beforeTime(exp);
-  }
+  };
 
   assert.afterTime = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.be.afterTime(exp);
-  }
+  };
 
   assert.notAfterTime = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.not.be.afterTime(exp);
-  }
+  };
 
 }));
