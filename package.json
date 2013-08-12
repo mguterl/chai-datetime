@@ -2,7 +2,7 @@
   "name": "chai-datetime",
   "version": "1.0.0",
   "keywords": ["chai", "testing", "jasmine"],
-  "description": "date / time equality matchers for chai",
+  "description": "date / time comparison matchers for chai",
   "main": "chai-datetime.js",
   "scripts": {
     "test": "make test"
