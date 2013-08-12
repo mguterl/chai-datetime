@@ -19,6 +19,16 @@
     chai.use(plugin);
   }
 }(function(chai, utils){
+  chai.datetime = chai.datetime || {};
+
+  chai.datetime.formatDate = function(date) {
+    return date.toDateString();
+  }
+
+  chai.datetime.formatTime = function(time) {
+    return time;
+  }
+
   chai.Assertion.addChainableMethod('equalTime', function(time) {
     var expected = time.getTime(),
     actual = this._obj.getTime();
@@ -46,8 +56,8 @@
 
     this.assert(
       actual.getUTCFullYear <= date.getUTCFullYear && actual.getUTCMonth() <= date.getUTCMonth() && actual.getUTCDate() < date.getUTCDate(),
-      'expected ' + actual.toDateString() + ' to be before ' + date.toDateString(),
-      'expected ' + actual.toDateString() + ' not to be before ' + date.toDateString()
+      'expected ' + chai.datetime.formatDate(actual) + ' to be before ' + chai.datetime.formatDate(date),
+      'expected ' + chai.datetime.formatDate(actual) + ' not to be before ' + chai.datetime.formatDate(date)
     );
   });
 
@@ -56,8 +66,8 @@
 
     this.assert(
       actual.getUTCFullYear >= date.getUTCFullYear && actual.getUTCMonth() >= date.getUTCMonth() && actual.getUTCDate() > date.getUTCDate(),
-      'expected ' + actual.toDateString() + ' to be after ' + date.toDateString(),
-      'expected ' + actual.toDateString() + ' not to be after ' + date.toDateString()
+      'expected ' + chai.datetime.formatDate(actual) + ' to be after ' + chai.datetime.formatDate(date),
+      'expected ' + chai.datetime.formatDate(actual) + ' not to be after ' + chai.datetime.formatDate(date)
     );
   });
 
@@ -66,8 +76,8 @@
 
     this.assert(
       actual.getTime() < time.getTime(),
-      'expected ' + actual + ' to be before ' + time,
-      'expected ' + actual + ' not to be before ' + time
+      'expected ' + chai.datetime.formatTime(actual) + ' to be before ' + chai.datetime.formatTime(time),
+      'expected ' + chai.datetime.formatTime(actual) + ' not to be before ' + chai.datetime.formatTime(time)
     );
   });
 
@@ -76,8 +86,8 @@
 
     this.assert(
       actual.getTime() > time.getTime(),
-      'expected ' + actual + ' to be after ' + time,
-      'expected ' + actual + ' not to be after ' + time
+      'expected ' + chai.datetime.formatTime(actual) + ' to be after ' + chai.datetime.formatTime(time),
+      'expected ' + chai.datetime.formatTime(actual) + ' not to be after ' + chai.datetime.formatTime(time)
     );
   });
 

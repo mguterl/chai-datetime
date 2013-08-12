@@ -302,7 +302,7 @@
             (function() {
               test.d1.should.not.be.beforeTime(test.d2);
             }).should.fail(
-              'expected Thu May 30 2013 16:05:00 GMT-0400 (EDT) not to be before Thu May 30 2013 16:05:01 GMT-0400 (EDT)'
+              'expected ' + chai.datetime.formatTime(this.d1) + ' not to be before ' + chai.datetime.formatTime(this.d2)
             );
           });
         });
@@ -320,7 +320,7 @@
           (function() {
             test.d1.should.be.beforeTime(test.d2);
           }).should.fail(
-            'expected Thu May 30 2013 16:05:00 GMT-0400 (EDT) to be before Thu May 30 2013 16:05:00 GMT-0400 (EDT)'
+            'expected ' + chai.datetime.formatTime(this.d1) + ' to be before ' + chai.datetime.formatTime(this.d2)
           );
         });
 
@@ -351,7 +351,7 @@
             (function() {
               test.d1.should.not.be.afterTime(test.d2)
             }).should.fail(
-              'expected Thu May 30 2013 16:05:01 GMT-0400 (EDT) not to be after Thu May 30 2013 16:05:00 GMT-0400 (EDT)'
+              'expected ' + chai.datetime.formatTime(this.d1) + ' not to be after ' + chai.datetime.formatTime(this.d2)
             );
           });
         });
@@ -369,7 +369,7 @@
           (function() {
             test.d1.should.be.afterTime(test.d2)
           }).should.fail(
-            'expected Thu May 30 2013 16:05:00 GMT-0400 (EDT) to be after Thu May 30 2013 16:05:00 GMT-0400 (EDT)'
+            'expected ' + chai.datetime.formatTime(this.d1) + ' to be after ' + chai.datetime.formatTime(this.d2)
           );
         });
 
