@@ -38,7 +38,7 @@
   };
 
   chai.datetime.beforeDate = function(actual, expected) {
-    return actual.getUTCFullYear <= expected.getUTCFullYear && actual.getUTCMonth() <= expected.getUTCMonth() && actual.getUTCDate() < expected.getUTCDate();
+    return actual.getUTCFullYear() < expected.getUTCFullYear() || actual.getUTCMonth() < expected.getUTCMonth() || actual.getUTCDate() < expected.getUTCDate();
   };
 
   chai.datetime.afterDate = function(actual, expected) {

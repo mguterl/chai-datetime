@@ -96,6 +96,53 @@
           });
         });
       });
+
+      describe('beforeDate', function() {
+        describe('when given two identical date objects', function() {
+          beforeEach(function() {
+            this.actual = new Date(2013, 3, 30);
+            this.expected = new Date(2013, 3, 30);
+          });
+
+          it('returns false', function() {
+            chai.datetime.beforeDate(this.actual, this.expected).should.be.eq(false)
+          });
+        });
+
+        describe('when given the actual is before the expected', function() {
+          beforeEach(function() {
+            this.actual = new Date(2013, 3, 29);
+            this.expected = new Date(2013, 3, 30);
+          });
+
+          it('returns false', function() {
+            chai.datetime.beforeDate(this.actual, this.expected).should.be.eq(true)
+          });
+        });
+
+        describe('when given the actual is after the expected', function() {
+          beforeEach(function() {
+            this.actual = new Date(2013, 3, 30);
+            this.expected = new Date(2013, 3, 29);
+          });
+
+          it('returns false', function() {
+            chai.datetime.beforeDate(this.actual, this.expected).should.be.eq(false)
+          });
+        });
+
+        describe('when the year differs', function() {
+          // BUG: https://github.com/gaslight/chai-datetime/issues/13
+          beforeEach(function() {
+            this.actual = new Date(2013, 0, 2);
+            this.expected = new Date(2014, 0, 2);
+          });
+
+          it('returns true', function() {
+            chai.datetime.beforeDate(this.actual, this.expected).should.be.eq(true)
+          });
+        });
+      });
     });
 
     describe('matchers', function() {
