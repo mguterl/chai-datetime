@@ -59,7 +59,9 @@
     return this.assert(
       chai.datetime.equalTime(expected, actual),
       'expected ' + this._obj + ' to equal ' + expected,
-      'expected ' + this._obj + ' to not equal ' + expected
+      'expected ' + this._obj + ' to not equal ' + expected,
+      expected.toString(),
+      actual.toString()
     );
   });
 
