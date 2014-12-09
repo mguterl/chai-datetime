@@ -37,12 +37,16 @@
     return actual.toDateString() === expected.toDateString();
   };
 
+  var dateWithoutTime = function(date) {
+    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  }
+
   chai.datetime.beforeDate = function(actual, expected) {
-    return actual.getUTCFullYear() < expected.getUTCFullYear() || actual.getUTCMonth() < expected.getUTCMonth() || actual.getUTCDate() < expected.getUTCDate();
+    return chai.datetime.beforeTime(dateWithoutTime(actual), dateWithoutTime(expected));
   };
 
   chai.datetime.afterDate = function(actual, expected) {
-    return actual.getUTCFullYear() > expected.getUTCFullYear() || actual.getUTCMonth() > expected.getUTCMonth() || actual.getUTCDate() > expected.getUTCDate();
+    return chai.datetime.afterTime(dateWithoutTime(actual), dateWithoutTime(expected));
   };
 
   chai.datetime.beforeTime = function(actual, expected) {

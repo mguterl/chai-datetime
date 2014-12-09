@@ -64,8 +64,8 @@
 
         describe('when given the actual is before the expected', function() {
           beforeEach(function() {
-            this.actual = new Date(2013, 3, 29);
-            this.expected = new Date(2013, 3, 30);
+            this.actual = new Date(2014, 0, 31);
+            this.expected = new Date(2014, 11, 1);
           });
 
           it('returns false', function() {
@@ -122,8 +122,8 @@
 
         describe('when given the actual is after the expected', function() {
           beforeEach(function() {
-            this.actual = new Date(2013, 3, 30);
-            this.expected = new Date(2013, 3, 29);
+            this.actual = new Date(2048, 0, 1);
+            this.expected = new Date(2014, 11, 31);
           });
 
           it('returns false', function() {
