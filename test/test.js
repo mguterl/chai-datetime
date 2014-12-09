@@ -115,7 +115,7 @@
             this.expected = new Date(2013, 3, 30);
           });
 
-          it('returns false', function() {
+          it('returns true', function() {
             chai.datetime.beforeDate(this.actual, this.expected).should.be.eq(true)
           });
         });
