@@ -38,7 +38,7 @@
   };
 
   var dateWithoutTime = function(date) {
-    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
   chai.datetime.beforeDate = function(actual, expected) {

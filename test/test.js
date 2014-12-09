@@ -60,6 +60,12 @@
           it('returns false', function() {
             chai.datetime.afterDate(this.actual, this.expected).should.be.eq(false)
           });
+
+          it('should not be affected by time zones', function() {
+            var midnight = new Date(2014, 0, 1, 0);
+            var endOfDay = new Date(2014, 0, 1, 23);
+            chai.datetime.afterDate(endOfDay, midnight).should.be.false;
+          });
         });
 
         describe('when given the actual is before the expected', function() {
@@ -106,6 +112,12 @@
 
           it('returns false', function() {
             chai.datetime.beforeDate(this.actual, this.expected).should.be.eq(false)
+          });
+
+          it('should not be affected by time zones', function() {
+            var midnight = new Date(2014, 0, 1, 0);
+            var endOfDay = new Date(2014, 0, 1, 23);
+            chai.datetime.beforeDate(midnight, endOfDay).should.be.false;
           });
         });
 
