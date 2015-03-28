@@ -22,7 +22,7 @@ error messages:
 
 Use chai-datetime to get something easier to read:
 
-    AssertionError: expected Thu May 30 2013 16:06:00 GMT-0400 (EDT) to equal Thu May 30 2013 16:05:00 GMT-0400 (EDT)
+    AssertionError: expected Thu May 30 2013 16:06:00.000 (-04:00) to equal Thu May 30 2013 16:05:00.000 (-04:00)
 
 ## Usage
 
