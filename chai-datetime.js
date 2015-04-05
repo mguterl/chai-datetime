@@ -21,12 +21,43 @@
 }(function(chai, utils){
   chai.datetime = chai.datetime || {};
 
+  function padNumber(num, length) {
+    var ret = '' + num;
+    var i = ret.length;
+
+    if (!isFinite(length)) {
+      length = 2;
+    }
+
+    for (i; i < length; i++) {
+      ret = '0' + ret;
+    }
+
+    return ret;
+  }
+
+  chai.datetime.getFormattedTimezone = function(timezoneInMinutes) {
+    var tz = Math.abs(timezoneInMinutes);
+    var hours = Math.floor(tz / 60);
+    var minutes = tz % 60;
+    var isAheadOfUtc = timezoneInMinutes <= 0;
+
+    return (isAheadOfUtc ? '+' : '-') +
+           padNumber(hours) + ':' +
+           padNumber(minutes);
+  }
+
   chai.datetime.formatDate = function(date) {
     return date.toDateString();
   };
 
   chai.datetime.formatTime = function(time) {
-    return time;
+    return time.toDateString() + ' ' +
+           padNumber(time.getHours()) + ':' +
+           padNumber(time.getMinutes()) + ':' +
+           padNumber(time.getSeconds()) + '.' +
+           padNumber(time.getMilliseconds(), 3) + ' (' +
+           chai.datetime.getFormattedTimezone(time.getTimezoneOffset()) + ')';
   };
 
   chai.datetime.equalTime = function(actual, expected) {

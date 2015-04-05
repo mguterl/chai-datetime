@@ -391,7 +391,6 @@
       })
     });
 
-
     describe('beforeTime', function() {
       describe('when comparing two different times', function() {
         beforeEach(function() {
@@ -439,7 +438,6 @@
         });
       });
     });
-
 
     describe('afterTime', function() {
       describe('when comparing two different times', function() {
@@ -489,6 +487,83 @@
       });
     });
 
+    describe('formatTime', function() {
+      describe('printing the date at the start', function() {
+        it('prints the date at the beginning of the string', function() {
+          var date = new Date(2014, 11, 20, 15, 20, 17, 345);
+          chai.datetime.formatTime(date).should.match(/^Sat Dec 20 2014.*/);
+        });
+      });
+
+      describe('printing the time', function() {
+        it('prints milliseconds with one digit', function() {
+          var date = new Date(2014, 11, 20, 15, 20, 17, 002);
+          chai.datetime.formatTime(date).should.match(/.*15:20:17\.002.*/);
+        });
+
+        it('prints milliseconds with two digits', function() {
+          var date = new Date(2014, 11, 20, 15, 20, 17, 097);
+          chai.datetime.formatTime(date).should.match(/.*15:20:17\.097.*/);
+        });
+
+        it('prints milliseconds with three digits', function() {
+          var date = new Date(2014, 11, 20, 15, 20, 17, 345);
+          chai.datetime.formatTime(date).should.match(/.*15:20:17\.345.*/);
+        });
+
+        it('prints seconds with one digit', function() {
+          var date = new Date(2014, 11, 20, 15, 20, 7, 345);
+          chai.datetime.formatTime(date).should.match(/.*15:20:07.*/);
+        });
+
+        it('prints seconds with two digits', function() {
+          var date = new Date(2014, 11, 20, 15, 20, 49, 345);
+          chai.datetime.formatTime(date).should.match(/.*15:20:49.*/);
+        });
+
+        it('prints minutes with one digit', function() {
+          var date = new Date(2014, 11, 20, 15, 6, 49, 345);
+          chai.datetime.formatTime(date).should.match(/.*15:06:49.*/);
+        });
+
+        it('prints minutes with two digits', function() {
+          var date = new Date(2014, 11, 20, 15, 31, 49, 345);
+          chai.datetime.formatTime(date).should.match(/.*15:31:49.*/);
+        });
+
+        it('prints hours with one digit', function() {
+          var date = new Date(2014, 11, 20, 3, 20, 49, 345);
+          chai.datetime.formatTime(date).should.match(/.*03:20:49.*/);
+        });
+
+        it('prints hours with two digits', function() {
+          var date = new Date(2014, 11, 20, 17, 20, 49, 345);
+          chai.datetime.formatTime(date).should.match(/.*17:20:49.*/);
+        });
+      });
+
+      describe('printing the timezone', function() {
+        it('prints the local timezone', function() {
+          var date = new Date('2014-12-20T15:20:17.345Z');
+          chai.datetime.formatTime(date).should.match(/.* \([+-]\d\d:\d\d\)$/);
+        });
+      });
+    });
+
+    describe('getFormattedTimezone', function() {
+      // Note, timezone is given in minutes, negative means it is ahead of UTC.
+      it('should use a + to indicate the timezone is ahead of UTC', function () {
+        chai.datetime.getFormattedTimezone(-525).should.equal('+08:45');
+      });
+
+      it('should use a - to indicate the timezone is behind of UTC', function () {
+        chai.datetime.getFormattedTimezone(300).should.equal('-05:00');
+      });
+
+      it('should use a + when we are in the UTC timezone', function () {
+        chai.datetime.getFormattedTimezone(0).should.equal('+00:00');
+      })
+    });
 
     describe('tdd alias', function() {
       beforeEach(function() {
