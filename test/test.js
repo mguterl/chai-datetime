@@ -246,6 +246,48 @@
           });
         });
 
+        describe('when a lazy developer provides a non-date to match against', function() {
+          var theSameAsAString = '2013-05-30';
+          var theSameAsMillisecondsSinceEpoch = 1369872000000;
+
+          it('date as string passes', function() {
+            this.subject.should.be.equalDate(theSameAsAString);
+          });
+
+          it('date as epoch time passes', function() {
+            this.subject.should.be.equalDate(theSameAsMillisecondsSinceEpoch);
+          });
+
+          describe('when negated', function() {
+            it('date as string fails', function() {
+              var test = this;
+
+              (function() {
+                test.subject.should.not.be.equalDate(theSameAsAString);
+              }).should.fail(
+                'expected Thu May 30 2013 to not equal Thu May 30 2013'
+              );
+            });
+            it('date as epoch time fails', function() {
+              var test = this;
+              (function() {
+                test.subject.should.not.be.equalDate(theSameAsMillisecondsSinceEpoch);
+              }).should.fail(
+                'expected Thu May 30 2013 to not equal Thu May 30 2013'
+              );
+            });
+          });
+
+          describe('error handling', function() {
+            it('should complain if unusable date string provided', function() {
+              var test = this;
+              (function() {
+                test.subject.should.be.equalDate('THIS IS NOT A DATE');
+              }).should.fail('expected Thu May 30 2013 to equal Invalid Date');
+            });
+          });
+
+        });
       });
     });
 

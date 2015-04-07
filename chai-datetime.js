@@ -21,6 +21,10 @@
 }(function(chai, utils){
   chai.datetime = chai.datetime || {};
 
+  function asDate(date) {
+    return (date instanceof Date) ? date : new Date(date);
+  }
+
   function padNumber(num, length) {
     var ret = '' + num;
     var i = ret.length;
@@ -48,7 +52,7 @@
   }
 
   chai.datetime.formatDate = function(date) {
-    return date.toDateString();
+    return asDate(date).toDateString();
   };
 
   chai.datetime.formatTime = function(time) {
@@ -65,7 +69,7 @@
   };
 
   chai.datetime.equalDate = function(actual, expected) {
-    return actual.toDateString() === expected.toDateString();
+    return actual.toDateString() === asDate(expected).toDateString();
   };
 
   var dateWithoutTime = function(date) {
