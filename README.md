@@ -59,7 +59,7 @@ All assertions are defined for both the BDD and TDD syntaxes.
 var d1 = new Date(2013, 4, 30, 16, 5),
     d2 = new Date(2013, 4, 30, 17);
 
-d1.should.equalDate.d2
+d1.should.equalDate(d2)
 expect(d1).to.equalDate(d2)
 assert.equalDate(d1, d2)
 ```
