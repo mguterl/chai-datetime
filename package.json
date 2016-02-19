@@ -1,7 +1,7 @@
 {
   "name": "chai-datetime",
   "version": "1.4.0",
-  "keywords": ["chai", "testing", "jasmine"],
+  "keywords": ["chai", "chai-plugin", "objects", "date", "time", "browser", "testing", "jasmine"],
   "description": "date / time comparison matchers for chai",
   "main": "chai-datetime.js",
   "scripts": {
