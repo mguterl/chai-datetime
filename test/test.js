@@ -487,6 +487,150 @@
       });
     });
 
+    describe('aroundTime', function() {
+      describe('when first time is before second', function() {
+        describe('and delta is exact difference between two times', function() {
+          beforeEach(function() {
+            this.d1 = new Date(2013, 4, 30, 16, 5, 0);
+            this.d2 = new Date(2013, 4, 30, 16, 5, 1);
+          });
+
+          it('passes', function() {
+            this.d1.should.be.aroundTime(this.d2, 1000);
+          });
+
+          describe('when negated', function() {
+            it('fails', function() {
+              var test = this;
+
+              (function() {
+                test.d1.should.not.be.aroundTime(test.d2, 1000)
+              }).should.fail(
+                'expected ' + chai.datetime.formatTime(this.d1) + ' not to be around ' + chai.datetime.formatTime(this.d2) + ' +/- 1000 ms'
+              );
+            });
+          });
+        });
+
+        describe('and delta is bigger than two times difference', function() {
+          beforeEach(function() {
+            this.d1 = new Date(2013, 4, 30, 16, 5, 0);
+            this.d2 = new Date(2013, 4, 30, 16, 5, 1);
+          });
+
+          it('passes', function() {
+            this.d1.should.be.aroundTime(this.d2, 2000);
+          });
+
+          describe('when negated', function() {
+            it('fails', function() {
+              var test = this;
+
+              (function() {
+                test.d1.should.not.be.aroundTime(test.d2, 2000)
+              }).should.fail(
+                'expected ' + chai.datetime.formatTime(this.d1) + ' not to be around ' + chai.datetime.formatTime(this.d2) + ' +/- 2000 ms'
+              );
+            });
+          });
+        });
+
+        describe('and delta is smaller than two times difference', function() {
+          beforeEach(function() {
+            this.d1 = new Date(2013, 4, 30, 16, 5, 0);
+            this.d2 = new Date(2013, 4, 30, 16, 5, 1);
+          });
+
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.d1.should.be.aroundTime(test.d2, 500)
+            }).should.fail(
+              'expected ' + chai.datetime.formatTime(this.d1) + ' to be around ' + chai.datetime.formatTime(this.d2) + ' +/- 500 ms'
+            );
+          });
+
+          describe('when negated', function() {
+            it('passes', function() {
+              this.d1.should.not.be.aroundTime(this.d2, 500);
+            });
+          });
+        });
+      });
+
+      describe('when first time is after second', function() {
+        describe('and delta is exact difference between two times', function() {
+          beforeEach(function() {
+            this.d1 = new Date(2013, 4, 30, 16, 5, 1);
+            this.d2 = new Date(2013, 4, 30, 16, 5, 0);
+          });
+
+          it('passes', function() {
+            this.d1.should.be.aroundTime(this.d2, 1000);
+          });
+
+          describe('when negated', function() {
+            it('fails', function() {
+              var test = this;
+
+              (function() {
+                test.d1.should.not.be.aroundTime(test.d2, 1000)
+              }).should.fail(
+                'expected ' + chai.datetime.formatTime(this.d1) + ' not to be around ' + chai.datetime.formatTime(this.d2) + ' +/- 1000 ms'
+              );
+            });
+          });
+        });
+
+        describe('and delta is bigger than two times difference', function() {
+          beforeEach(function() {
+            this.d1 = new Date(2013, 4, 30, 16, 5, 1);
+            this.d2 = new Date(2013, 4, 30, 16, 5, 0);
+          });
+
+          it('passes', function() {
+            this.d1.should.be.aroundTime(this.d2, 2000);
+          });
+
+          describe('when negated', function() {
+            it('fails', function() {
+              var test = this;
+
+              (function() {
+                test.d1.should.not.be.aroundTime(test.d2, 2000)
+              }).should.fail(
+                'expected ' + chai.datetime.formatTime(this.d1) + ' not to be around ' + chai.datetime.formatTime(this.d2) + ' +/- 2000 ms'
+              );
+            });
+          });
+        });
+
+        describe('and delta is smaller than two times difference', function() {
+          beforeEach(function() {
+            this.d1 = new Date(2013, 4, 30, 16, 5, 1);
+            this.d2 = new Date(2013, 4, 30, 16, 5, 0);
+          });
+
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.d1.should.be.aroundTime(test.d2, 500)
+            }).should.fail(
+              'expected ' + chai.datetime.formatTime(this.d1) + ' to be around ' + chai.datetime.formatTime(this.d2) + ' +/- 500 ms'
+            );
+          });
+
+          describe('when negated', function() {
+            it('passes', function() {
+              this.d1.should.not.be.aroundTime(this.d2, 500);
+            });
+          });
+        });
+      });
+    });
+
     describe('formatTime', function() {
       describe('printing the date at the start', function() {
         it('prints the date at the beginning of the string', function() {
