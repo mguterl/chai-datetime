@@ -88,6 +88,11 @@
     return actual.getTime() > expected.getTime();
   };
 
+  chai.datetime.aroundTime = function(actual, expected, delta) {
+    return (actual.getTime() >= expected.getTime() - delta) &&
+           (actual.getTime() <= expected.getTime() + delta);
+  };
+
   chai.Assertion.addChainableMethod('equalTime', function(expected) {
     var actual = this._obj;
 
@@ -151,6 +156,17 @@
     );
   });
 
+  chai.Assertion.addChainableMethod('aroundTime', function(expected, delta) {
+    var actual = this._obj;
+
+    this.assert(
+      chai.datetime.aroundTime(actual, expected, delta),
+      'expected ' + chai.datetime.formatTime(actual) + ' to be around ' + chai.datetime.formatTime(expected) + ' +/- ' + delta + ' ms',
+      'expected ' + chai.datetime.formatTime(actual) + ' not to be around ' + chai.datetime.formatTime(expected) + ' +/- ' + delta + ' ms'
+    );
+  });
+
+
   // Asserts
   var assert = chai.assert;
 
@@ -202,4 +218,11 @@
     new chai.Assertion(val, msg).to.not.be.afterTime(exp);
   };
 
+  assert.aroundTime = function(val, exp, delta, msg) {
+    new chai.Assertion(val, msg).to.be.aroundTime(exp, delta);
+  };
+
+  assert.notAroundTime = function(val, exp, delta, msg) {
+    new chai.Assertion(val, msg).to.not.be.aroundTime(exp, delta);
+  };
 }));
