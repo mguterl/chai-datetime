@@ -561,6 +561,80 @@
       });
     });
 
+    describe('withinTime', function() {
+      describe('when given a time between two times', function() {
+        beforeEach(function() {
+          this.d1 = new Date(2013, 4, 30, 16, 5, 1);
+          this.d2 = new Date(2013, 4, 30, 16, 5, 0);
+          this.d3 = new Date(2013, 4, 30, 16, 5, 2);
+        });
+
+        it('passes', function() {
+          this.d1.should.be.withinTime(this.d2, this.d3);
+        });
+
+        describe('when negated', function() {
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.d1.should.not.be.withinTime(test.d2, test.d3);
+            }).should.fail(
+              'expected Thu May 30 2013 16:05:01.000 (+01:00) not to be within Thu May 30 2013 16:05:00.000 (+01:00) and Thu May 30 2013 16:05:02.000 (+01:00)'
+            );
+          });
+        });
+      });
+
+      describe('when given a time that is not between two times', function() {
+        beforeEach(function() {
+          this.d1 = new Date(2013, 4, 30, 16, 5, 0);
+          this.d2 = new Date(2013, 4, 30, 16, 5, 1);
+          this.d3 = new Date(2013, 4, 30, 16, 5, 2);
+        });
+
+        it('fails', function() {
+          var test = this;
+
+          (function() {
+            test.d1.should.be.withinTime(test.d2, test.d3);
+          }).should.fail(
+            'expected Thu May 30 2013 16:05:00.000 (+01:00) to be within Thu May 30 2013 16:05:01.000 (+01:00) and Thu May 30 2013 16:05:02.000 (+01:00)'
+          );
+        });
+
+        describe('when negated', function() {
+          it('passes', function() {
+            this.d1.should.not.be.withinTime(this.d2, this.d3);
+          });
+        });
+      });
+
+      describe('when given three identical times', function() {
+        beforeEach(function() {
+          this.d1 = new Date(2013, 4, 30, 16, 5, 1);
+          this.d2 = new Date(2013, 4, 30, 16, 5, 1);
+          this.d3 = new Date(2013, 4, 30, 16, 5, 1);
+        });
+
+        it('passes', function() {
+          this.d1.should.be.withinTime(this.d2, this.d3);
+        });
+
+        describe('when negated', function() {
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.d1.should.not.be.withinTime(test.d2, test.d3);
+            }).should.fail(
+              'expected Thu May 30 2013 16:05:01.000 (+01:00) not to be within Thu May 30 2013 16:05:01.000 (+01:00) and Thu May 30 2013 16:05:01.000 (+01:00)'
+            );
+          });
+        });
+      });
+    });
+
     describe('formatTime', function() {
       describe('printing the date at the start', function() {
         it('prints the date at the beginning of the string', function() {
