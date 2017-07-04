@@ -391,6 +391,80 @@
       })
     });
 
+    describe('withinDate', function() {
+      describe('when given a date between two dates', function() {
+        beforeEach(function() {
+          this.d1 = new Date(2013, 4, 30);
+          this.d2 = new Date(2013, 4, 29);
+          this.d3 = new Date(2013, 4, 31);
+        });
+
+        it('passes', function() {
+          this.d1.should.be.withinDate(this.d2, this.d3);
+        });
+
+        describe('when negated', function() {
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.d1.should.not.be.withinDate(test.d2, test.d3);
+            }).should.fail(
+              'expected Thu May 30 2013 not to be within Wed May 29 2013 and Fri May 31 2013'
+            );
+          });
+        });
+      });
+
+      describe('when given a date that is not between two dates', function() {
+        beforeEach(function() {
+          this.d1 = new Date(2013, 4, 28);
+          this.d2 = new Date(2013, 4, 29);
+          this.d3 = new Date(2013, 4, 31);
+        });
+
+        it('fails', function() {
+          var test = this;
+
+          (function() {
+            test.d1.should.be.withinDate(test.d2, test.d3);
+          }).should.fail(
+            'expected Tue May 28 2013 to be within Wed May 29 2013 and Fri May 31 2013'
+          );
+        });
+
+        describe('when negated', function() {
+          it('passes', function() {
+            this.d1.should.not.be.withinDate(this.d2, this.d3);
+          });
+        });
+      });
+
+      describe('when given three identical dates', function() {
+        beforeEach(function() {
+          this.d1 = new Date(2013, 4, 30);
+          this.d2 = new Date(2013, 4, 30);
+          this.d3 = new Date(2013, 4, 30);
+        });
+
+        it('passes', function() {
+          this.d1.should.be.withinDate(this.d2, this.d3);
+        });
+
+        describe('when negated', function() {
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.d1.should.not.be.withinDate(test.d2, test.d3);
+            }).should.fail(
+              'expected Thu May 30 2013 not to be within Thu May 30 2013 and Thu May 30 2013'
+            );
+          });
+        });
+      });
+    });
+
     describe('beforeTime', function() {
       describe('when comparing two different times', function() {
         beforeEach(function() {

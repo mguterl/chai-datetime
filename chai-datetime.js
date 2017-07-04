@@ -80,6 +80,10 @@
     return chai.datetime.afterTime(dateWithoutTime(actual), dateWithoutTime(expected));
   };
 
+  chai.datetime.withinDate = function(actual, expectedFrom, expectedTo) {
+    return actual.getTime() >= expectedFrom.getTime() && actual.getTime() <= expectedTo.getTime();
+  };
+
   chai.datetime.beforeTime = function(actual, expected) {
     return actual.getTime() < expected.getTime();
   };
@@ -128,6 +132,16 @@
       chai.datetime.afterDate(actual, expected),
       'expected ' + chai.datetime.formatDate(actual) + ' to be after ' + chai.datetime.formatDate(expected),
       'expected ' + chai.datetime.formatDate(actual) + ' not to be after ' + chai.datetime.formatDate(expected)
+    );
+  });
+
+  chai.Assertion.addChainableMethod('withinDate', function(expectedFrom, expectedTo) {
+    var actual = this._obj;
+
+    this.assert(
+      chai.datetime.withinDate(actual, expectedFrom, expectedTo),
+      'expected ' + chai.datetime.formatDate(actual) + ' to be within ' + chai.datetime.formatDate(expectedFrom) + ' and ' + chai.datetime.formatDate(expectedTo),
+      'expected ' + chai.datetime.formatDate(actual) + ' not to be within ' + chai.datetime.formatDate(expectedFrom) + ' and ' + chai.datetime.formatDate(expectedTo)
     );
   });
 
