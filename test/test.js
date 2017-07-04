@@ -580,7 +580,7 @@
             (function() {
               test.d1.should.not.be.withinTime(test.d2, test.d3);
             }).should.fail(
-              'expected Thu May 30 2013 16:05:01.000 (+01:00) not to be within Thu May 30 2013 16:05:00.000 (+01:00) and Thu May 30 2013 16:05:02.000 (+01:00)'
+              'expected ' + chai.datetime.formatTime(test.d1) + ' not to be within ' + chai.datetime.formatTime(test.d2) + ' and ' + chai.datetime.formatTime(test.d3)
             );
           });
         });
@@ -599,7 +599,7 @@
           (function() {
             test.d1.should.be.withinTime(test.d2, test.d3);
           }).should.fail(
-            'expected Thu May 30 2013 16:05:00.000 (+01:00) to be within Thu May 30 2013 16:05:01.000 (+01:00) and Thu May 30 2013 16:05:02.000 (+01:00)'
+            'expected ' + chai.datetime.formatTime(test.d1) + ' to be within ' + chai.datetime.formatTime(test.d2) + ' and ' + chai.datetime.formatTime(test.d3)
           );
         });
 
@@ -628,7 +628,7 @@
             (function() {
               test.d1.should.not.be.withinTime(test.d2, test.d3);
             }).should.fail(
-              'expected Thu May 30 2013 16:05:01.000 (+01:00) not to be within Thu May 30 2013 16:05:01.000 (+01:00) and Thu May 30 2013 16:05:01.000 (+01:00)'
+              'expected ' + chai.datetime.formatTime(test.d1) + ' not to be within ' + chai.datetime.formatTime(test.d2) + ' and ' + chai.datetime.formatTime(test.d3)
             );
           });
         });
