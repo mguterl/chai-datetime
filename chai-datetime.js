@@ -81,7 +81,11 @@
   };
 
   chai.datetime.withinDate = function(actual, expectedFrom, expectedTo) {
-    return actual.getTime() >= expectedFrom.getTime() && actual.getTime() <= expectedTo.getTime();
+    return chai.datetime.withinTime(
+      dateWithoutTime(actual),
+      dateWithoutTime(expectedFrom),
+      dateWithoutTime(expectedTo)
+    );
   };
 
   chai.datetime.beforeTime = function(actual, expected) {
