@@ -210,6 +210,14 @@
     new chai.Assertion(val, msg).not.to.be.afterDate(exp);
   };
 
+  assert.withinDate = function(val, expFrom, expTo, msg) {
+    new chai.Assertion(val, msg).to.be.withinDate(expFrom, expTo);
+  };
+
+  assert.notWithinDate = function(val, expFrom, expTo, msg) {
+    new chai.Assertion(val, msg).not.to.be.withinDate(expFrom, expTo);
+  };
+
   assert.equalTime = function(val, exp, msg) {
     new chai.Assertion(val, msg).to.be.equalTime(exp);
   };
@@ -234,4 +242,11 @@
     new chai.Assertion(val, msg).to.not.be.afterTime(exp);
   };
 
+  assert.withinTime = function(val, expFrom, expTo, msg) {
+    new chai.Assertion(val, msg).to.be.withinTime(expFrom, expTo);
+  };
+
+  assert.notWithinTime = function(val, expFrom, expTo, msg) {
+    new chai.Assertion(val, msg).not.to.be.withinTime(expFrom, expTo);
+  };
 }));

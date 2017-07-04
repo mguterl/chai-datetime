@@ -742,6 +742,14 @@
         assert.notAfterDate(this.subject, new Date(2013, 4, 30));
       });
 
+      it('.withinDate', function() {
+        assert.withinDate(this.subject, new Date(2013, 4, 29), new Date(2013, 4, 31));
+      });
+
+      it('.notWithinDate', function() {
+        assert.notWithinDate(this.subject, new Date(2013, 4, 31), new Date(2013, 5, 0));
+      });
+
       it('.equalTime', function() {
         assert.equalTime(this.subject, new Date(2013, 4, 30, 16, 5));
       });
@@ -766,6 +774,13 @@
         assert.notAfterTime(this.subject, new Date(2013, 4, 30, 16, 6));
       });
 
+      it('.withinTime', function() {
+        assert.withinTime(this.subject, new Date(2013, 4, 30, 16, 4), new Date(2013, 4, 30, 16, 6));
+      });
+
+      it('.notWithinTime', function() {
+        assert.notWithinTime(this.subject, new Date(2013, 4, 30, 16, 6), new Date(2013, 4, 30, 16, 7));
+      });
     });
   });
 }));
