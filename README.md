@@ -49,9 +49,11 @@ portion of the Date object.
 * equalTime
 * beforeTime
 * afterTime
+* withinTime
 * equalDate
 * beforeDate
 * afterDate
+* withinDate
 
 All assertions are defined for both the BDD and TDD syntaxes.
 
