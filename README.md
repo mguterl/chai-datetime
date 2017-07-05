@@ -49,9 +49,12 @@ portion of the Date object.
 * equalTime
 * beforeTime
 * afterTime
+* aroundTime
 * equalDate
 * beforeDate
 * afterDate
+
+`aroundTime` is the only assertion that takes two arguments. Besides a date, it also takes `delta` - time difference in milliseconds.
 
 All assertions are defined for both the BDD and TDD syntaxes.
 
