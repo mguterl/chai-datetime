@@ -3,6 +3,7 @@
 Matchers for chai to help with common date comparison assertions against
 JavaScript Date objects.
 
+[![npm version](https://badge.fury.io/js/chai-datetime.svg)](https://badge.fury.io/js/chai-datetime)
 [![Build Status](https://travis-ci.org/mguterl/chai-datetime.png?branch=master)](https://travis-ci.org/mguterl/chai-datetime)
 
 ## Why?
