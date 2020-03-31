@@ -203,6 +203,51 @@
 
       });
 
+      describe('closeToTime', function() {
+        beforeEach(function() {
+          this.subject = new Date(2013, 4, 30, 16, 5, 16, 323);
+          this.closeTo = new Date(2013, 4, 30, 16, 5, 16, 581);
+          this.different = new Date(2013, 4, 30, 16, 6);
+        });
+
+        describe('when given two date objects with the same values', function() {
+          it('passes', function() {
+            this.subject.should.be.closeToTime(this.closeTo);
+          });
+
+          describe('when negated', function() {
+            it('fails', function() {
+              var test = this;
+
+              (function() {
+                test.subject.should.not.be.closeToTime(test.closeTo);
+              }).should.fail(
+                'expected ' + test.subject + ' to not be close to ' + test.closeTo
+              );
+            });
+          });
+        });
+
+        describe('when given two date objects with different values', function() {
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.subject.should.be.closeToTime(test.different);
+            }).should.fail(
+              'expected ' + test.subject + ' to be close to ' + test.different
+            );
+          });
+
+          describe('when negated', function() {
+            it('passes', function() {
+              this.subject.should.not.be.closeToTime(this.different);
+            });
+          });
+        });
+
+      });
+
       describe('equalDate', function() {
         beforeEach(function() {
           this.subject = new Date(2013, 4, 30, 16, 5);
