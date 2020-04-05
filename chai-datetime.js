@@ -64,9 +64,10 @@
     return actual.getTime() == expected.getTime();
   };
 
-  chai.datetime.closeToTime = function(actual, expected) {
-    const ONE_SECOND_IN_MILLISECONDS = 1 * 1000;
-    return Math.abs(actual.getTime() - expected.getTime()) < ONE_SECOND_IN_MILLISECONDS;
+  chai.datetime.closeToTime = function(actual, expected, marginInSeconds) {
+    const ONE_SECOND_IN_MILLISECONDS = 1;
+    marginInSeconds = marginInSeconds || ONE_SECOND
+    return Math.abs(actual.getTime() - expected.getTime()) < marginInSeconds * 1000;
   };
 
   chai.datetime.equalDate = function(actual, expected) {
@@ -117,11 +118,11 @@
     );
   });
 
-  chai.Assertion.addChainableMethod('closeToTime', function(expected) {
+  chai.Assertion.addChainableMethod('closeToTime', function(expected, marginInSeconds) {
     var actual = this._obj;
 
     return this.assert(
-      chai.datetime.closeToTime(expected, actual),
+      chai.datetime.closeToTime(expected, actual, marginInSeconds),
       'expected ' + this._obj + ' to be close to ' + expected,
       'expected ' + this._obj + ' to not be close to ' + expected,
       expected.toString(),

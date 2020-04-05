@@ -206,13 +206,14 @@
       describe('closeToTime', function() {
         beforeEach(function() {
           this.subject = new Date(2013, 4, 30, 16, 5, 16, 323);
-          this.closeTo = new Date(2013, 4, 30, 16, 5, 16, 581);
+          this.subjetPlus200Milliseconds = new Date(2013, 4, 30, 16, 5, 16, 523);
+          this.subjetPlus3seconds = new Date(2013, 4, 30, 16, 5, 19, 323);
           this.different = new Date(2013, 4, 30, 16, 6);
         });
 
-        describe('when given two date objects with the same values', function() {
+        describe('when given two date objects within default margin', function() {
           it('passes', function() {
-            this.subject.should.be.closeToTime(this.closeTo);
+            this.subject.should.be.closeToTime(this.subjetPlus200Milliseconds);
           });
 
           describe('when negated', function() {
@@ -220,9 +221,29 @@
               var test = this;
 
               (function() {
-                test.subject.should.not.be.closeToTime(test.closeTo);
+                test.subject.should.not.be.closeToTime(test.subjetPlus200Milliseconds);
               }).should.fail(
-                'expected ' + test.subject + ' to not be close to ' + test.closeTo
+                'expected ' + test.subject + ' to not be close to ' + test.subjetPlus200Milliseconds
+              );
+            });
+          });
+        });
+
+        describe('when given two date objects within the configured margin', function() {
+          const marginInSeconds = 5
+
+          it('passes', function() {
+            this.subject.should.be.closeToTime(this.subjetPlus3seconds, marginInSeconds);
+          });
+
+          describe('when negated', function() {
+            it('fails', function() {
+              var test = this;
+
+              (function() {
+                test.subject.should.not.be.closeToTime(test.subjetPlus3seconds, marginInSeconds);
+              }).should.fail(
+                'expected ' + test.subject + ' to not be close to ' + test.subjetPlus3seconds
               );
             });
           });
