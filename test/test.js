@@ -208,7 +208,7 @@
           this.subject = new Date(2013, 4, 30, 16, 5, 16, 323);
           this.subjetPlus200Milliseconds = new Date(2013, 4, 30, 16, 5, 16, 523);
           this.subjetPlus3seconds = new Date(2013, 4, 30, 16, 5, 19, 323);
-          this.different = new Date(2013, 4, 30, 16, 6);
+          this.different = new Date(2013, 4, 30, 18, 6);
         });
 
         describe('when given two date objects within default margin', function() {
@@ -223,7 +223,7 @@
               (function() {
                 test.subject.should.not.be.closeToTime(test.subjetPlus200Milliseconds);
               }).should.fail(
-                'expected ' + test.subject + ' to not be close to ' + test.subjetPlus200Milliseconds
+                'expected ' + test.subject + ' to not be within 1s of ' + test.subjetPlus200Milliseconds
               );
             });
           });
@@ -243,26 +243,45 @@
               (function() {
                 test.subject.should.not.be.closeToTime(test.subjetPlus3seconds, marginInSeconds);
               }).should.fail(
-                'expected ' + test.subject + ' to not be close to ' + test.subjetPlus3seconds
+                'expected ' + test.subject + ' to not be within 5s of ' + test.subjetPlus3seconds
               );
             });
           });
         });
 
-        describe('when given two date objects with different values', function() {
+        describe('when given two date objects with values not within default margin', function() {
           it('fails', function() {
             var test = this;
 
             (function() {
               test.subject.should.be.closeToTime(test.different);
             }).should.fail(
-              'expected ' + test.subject + ' to be close to ' + test.different
+              'expected ' + test.subject + ' to be within 1s of ' + test.different
             );
           });
 
           describe('when negated', function() {
             it('passes', function() {
               this.subject.should.not.be.closeToTime(this.different);
+            });
+          });
+        });
+
+        describe('when given two date objects with values not within configured margin', function() {
+          const marginInSeconds = 50
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.subject.should.be.closeToTime(test.different, marginInSeconds);
+            }).should.fail(
+              'expected ' + test.subject + ' to be within 50s of ' + test.different
+            );
+          });
+
+          describe('when negated', function() {
+            it('passes', function() {
+              this.subject.should.not.be.closeToTime(this.different, marginInSeconds);
             });
           });
         });
