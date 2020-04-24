@@ -211,7 +211,7 @@
           this.different = new Date(2013, 4, 30, 18, 6);
         });
 
-        describe('when given two date objects within default margin', function() {
+        describe('when given two date objects within default delta', function() {
           it('passes', function() {
             this.subject.should.be.closeToTime(this.subjetPlus200Milliseconds);
           });
@@ -229,11 +229,11 @@
           });
         });
 
-        describe('when given two date objects within the configured margin', function() {
-          const marginInSeconds = 5
+        describe('when given two date objects within the configured delta', function() {
+          const deltaInSeconds = 5
 
           it('passes', function() {
-            this.subject.should.be.closeToTime(this.subjetPlus3seconds, marginInSeconds);
+            this.subject.should.be.closeToTime(this.subjetPlus3seconds, deltaInSeconds);
           });
 
           describe('when negated', function() {
@@ -241,7 +241,7 @@
               var test = this;
 
               (function() {
-                test.subject.should.not.be.closeToTime(test.subjetPlus3seconds, marginInSeconds);
+                test.subject.should.not.be.closeToTime(test.subjetPlus3seconds, deltaInSeconds);
               }).should.fail(
                 'expected ' + test.subject + ' to not be within 5s of ' + test.subjetPlus3seconds
               );
@@ -249,7 +249,7 @@
           });
         });
 
-        describe('when given two date objects with values not within default margin', function() {
+        describe('when given two date objects with values not within default delta', function() {
           it('fails', function() {
             var test = this;
 
@@ -267,13 +267,13 @@
           });
         });
 
-        describe('when given two date objects with values not within configured margin', function() {
-          const marginInSeconds = 50
+        describe('when given two date objects with values not within configured delta', function() {
+          const deltaInSeconds = 50
           it('fails', function() {
             var test = this;
 
             (function() {
-              test.subject.should.be.closeToTime(test.different, marginInSeconds);
+              test.subject.should.be.closeToTime(test.different, deltaInSeconds);
             }).should.fail(
               'expected ' + test.subject + ' to be within 50s of ' + test.different
             );
@@ -281,7 +281,7 @@
 
           describe('when negated', function() {
             it('passes', function() {
-              this.subject.should.not.be.closeToTime(this.different, marginInSeconds);
+              this.subject.should.not.be.closeToTime(this.different, deltaInSeconds);
             });
           });
         });
