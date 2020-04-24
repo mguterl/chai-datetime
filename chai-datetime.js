@@ -65,7 +65,6 @@
   };
 
   chai.datetime.closeToTime = function(actual, expected, deltaInSeconds) {
-    deltaInSeconds = deltaInSeconds || 1
     return Math.abs(actual.getTime() - expected.getTime()) < deltaInSeconds * 1000;
   };
 
@@ -119,7 +118,10 @@
 
   chai.Assertion.addChainableMethod('closeToTime', function(expected, deltaInSeconds) {
     var actual = this._obj;
-    deltaInSeconds = deltaInSeconds || 1
+
+    if((!deltaInSeconds && deltaInSeconds !== 0) || typeof deltaInSeconds !== 'number') {
+      throw new chai.AssertionError('second argument of closeToTime, \'deltaInSeconds\', must be a number')
+    }
 
     return this.assert(
       chai.datetime.closeToTime(expected, actual, deltaInSeconds),

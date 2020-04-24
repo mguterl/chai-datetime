@@ -211,9 +211,15 @@
           this.different = new Date(2013, 4, 30, 18, 6);
         });
 
-        describe('when given two date objects within default delta', function() {
-          it('passes', function() {
-            this.subject.should.be.closeToTime(this.subjetPlus200Milliseconds);
+        describe('when given two date objects but no delta', function() {
+          it.only('fails', function() {
+            var test = this;
+
+            (function() {
+              test.subject.should.be.closeToTime(this.subjetPlus200Milliseconds);
+            }).should.fail(
+              'second argument of closeToTime, \'deltaInSeconds\', must be a number'
+            );
           });
 
           describe('when negated', function() {
@@ -223,7 +229,7 @@
               (function() {
                 test.subject.should.not.be.closeToTime(test.subjetPlus200Milliseconds);
               }).should.fail(
-                'expected ' + test.subject + ' to not be within 1s of ' + test.subjetPlus200Milliseconds
+                'second argument of closeToTime, \'deltaInSeconds\', must be a number'
               );
             });
           });
@@ -245,24 +251,6 @@
               }).should.fail(
                 'expected ' + test.subject + ' to not be within 5s of ' + test.subjetPlus3seconds
               );
-            });
-          });
-        });
-
-        describe('when given two date objects with values not within default delta', function() {
-          it('fails', function() {
-            var test = this;
-
-            (function() {
-              test.subject.should.be.closeToTime(test.different);
-            }).should.fail(
-              'expected ' + test.subject + ' to be within 1s of ' + test.different
-            );
-          });
-
-          describe('when negated', function() {
-            it('passes', function() {
-              this.subject.should.not.be.closeToTime(this.different);
             });
           });
         });
