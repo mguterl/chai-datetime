@@ -27,10 +27,18 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "husky": "^4.2.5",
     "mocha": "^7.1.1",
-    "nodemon": "~0.6.23"
+    "nodemon": "~0.6.23",
+    "prettier": "2.0.5",
+    "pretty-quick": "^2.0.1"
   },
   "dependencies": {
     "chai": ">1.9.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
