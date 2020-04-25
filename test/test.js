@@ -211,30 +211,6 @@
           this.different = new Date(2013, 4, 30, 18, 6);
         });
 
-        describe('when given two date objects but no delta', function() {
-          it.only('fails', function() {
-            var test = this;
-
-            (function() {
-              test.subject.should.be.closeToTime(this.subjetPlus200Milliseconds);
-            }).should.fail(
-              'second argument of closeToTime, \'deltaInSeconds\', must be a number'
-            );
-          });
-
-          describe('when negated', function() {
-            it('fails', function() {
-              var test = this;
-
-              (function() {
-                test.subject.should.not.be.closeToTime(test.subjetPlus200Milliseconds);
-              }).should.fail(
-                'second argument of closeToTime, \'deltaInSeconds\', must be a number'
-              );
-            });
-          });
-        });
-
         describe('when given two date objects within the configured delta', function() {
           const deltaInSeconds = 5
 
@@ -318,7 +294,6 @@
             });
           });
         });
-
       });
     });
 
