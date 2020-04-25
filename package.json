@@ -14,26 +14,31 @@
   "description": "date / time comparison matchers for chai",
   "main": "chai-datetime.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --recursive -C",
-    "testwatch": "./node_modules/.bin/nodemon -L -d 0 -w . --exec make test",
-    "clean": "rm -rf node_modules",
-    "dev": "npm run clean && npm install && npm run testwatch"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/gaslight/chai-datetime.git"
+    "url": "git://github.com/mguterl/chai-datetime.git"
   },
   "author": {
     "name": "Michael Guterl",
     "email": "michael@diminishing.org",
-    "url": "http://diminishing.org"
+    "url": "https://diminishing.org"
   },
   "license": "MIT",
   "devDependencies": {
+    "husky": "^4.2.5",
     "mocha": "^7.1.1",
-    "nodemon": "~0.6.23"
+    "nodemon": "~0.6.23",
+    "prettier": "2.0.5",
+    "pretty-quick": "^2.0.1"
   },
   "dependencies": {
     "chai": ">1.9.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
