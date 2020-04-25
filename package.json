@@ -14,10 +14,7 @@
   "description": "date / time comparison matchers for chai",
   "main": "chai-datetime.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --recursive -C",
-    "testwatch": "./node_modules/.bin/nodemon -L -d 0 -w . --exec make test",
-    "clean": "rm -rf node_modules",
-    "dev": "npm run clean && npm install && npm run testwatch"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
