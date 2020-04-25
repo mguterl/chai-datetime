@@ -203,6 +203,79 @@
 
       });
 
+      describe('closeToTime', function() {
+        beforeEach(function() {
+          this.subject = new Date(2013, 4, 30, 16, 5, 16, 323);
+          this.subjetPlus200Milliseconds = new Date(2013, 4, 30, 16, 5, 16, 523);
+          this.subjetPlus3seconds = new Date(2013, 4, 30, 16, 5, 19, 323);
+          this.different = new Date(2013, 4, 30, 18, 6);
+        });
+
+        describe('when given two date objects but no delta', function() {
+          it.only('fails', function() {
+            var test = this;
+
+            (function() {
+              test.subject.should.be.closeToTime(this.subjetPlus200Milliseconds);
+            }).should.fail(
+              'second argument of closeToTime, \'deltaInSeconds\', must be a number'
+            );
+          });
+
+          describe('when negated', function() {
+            it('fails', function() {
+              var test = this;
+
+              (function() {
+                test.subject.should.not.be.closeToTime(test.subjetPlus200Milliseconds);
+              }).should.fail(
+                'second argument of closeToTime, \'deltaInSeconds\', must be a number'
+              );
+            });
+          });
+        });
+
+        describe('when given two date objects within the configured delta', function() {
+          const deltaInSeconds = 5
+
+          it('passes', function() {
+            this.subject.should.be.closeToTime(this.subjetPlus3seconds, deltaInSeconds);
+          });
+
+          describe('when negated', function() {
+            it('fails', function() {
+              var test = this;
+
+              (function() {
+                test.subject.should.not.be.closeToTime(test.subjetPlus3seconds, deltaInSeconds);
+              }).should.fail(
+                'expected ' + test.subject + ' to not be within 5s of ' + test.subjetPlus3seconds
+              );
+            });
+          });
+        });
+
+        describe('when given two date objects with values not within configured delta', function() {
+          const deltaInSeconds = 50
+          it('fails', function() {
+            var test = this;
+
+            (function() {
+              test.subject.should.be.closeToTime(test.different, deltaInSeconds);
+            }).should.fail(
+              'expected ' + test.subject + ' to be within 50s of ' + test.different
+            );
+          });
+
+          describe('when negated', function() {
+            it('passes', function() {
+              this.subject.should.not.be.closeToTime(this.different, deltaInSeconds);
+            });
+          });
+        });
+
+      });
+
       describe('equalDate', function() {
         beforeEach(function() {
           this.subject = new Date(2013, 4, 30, 16, 5);

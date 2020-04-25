@@ -48,6 +48,7 @@ assertion that specifies date in the name only compares the date
 portion of the Date object.
 
 * equalTime
+* closeToTime (with a configurable delta in seconds)
 * beforeTime
 * afterTime
 * withinTime

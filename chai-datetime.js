@@ -64,6 +64,10 @@
     return actual.getTime() == expected.getTime();
   };
 
+  chai.datetime.closeToTime = function(actual, expected, deltaInSeconds) {
+    return Math.abs(actual.getTime() - expected.getTime()) < deltaInSeconds * 1000;
+  };
+
   chai.datetime.equalDate = function(actual, expected) {
     return actual.toDateString() === expected.toDateString();
   };
@@ -107,6 +111,22 @@
       chai.datetime.equalTime(expected, actual),
       'expected ' + this._obj + ' to equal ' + expected,
       'expected ' + this._obj + ' to not equal ' + expected,
+      expected.toString(),
+      actual.toString()
+    );
+  });
+
+  chai.Assertion.addChainableMethod('closeToTime', function(expected, deltaInSeconds) {
+    var actual = this._obj;
+
+    if((!deltaInSeconds && deltaInSeconds !== 0) || typeof deltaInSeconds !== 'number') {
+      throw new chai.AssertionError('second argument of closeToTime, \'deltaInSeconds\', must be a number')
+    }
+
+    return this.assert(
+      chai.datetime.closeToTime(expected, actual, deltaInSeconds),
+      'expected ' + this._obj + ' to be within ' + deltaInSeconds + 's of ' + expected,
+      'expected ' + this._obj + ' to not be within ' + deltaInSeconds + 's of ' + expected,
       expected.toString(),
       actual.toString()
     );
