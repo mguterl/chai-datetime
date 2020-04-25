@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/gaslight/chai-datetime.git"
+    "url": "git://github.com/mguterl/chai-datetime.git"
   },
   "author": {
     "name": "Michael Guterl",
     "email": "michael@diminishing.org",
-    "url": "http://diminishing.org"
+    "url": "https://diminishing.org"
   },
   "license": "MIT",
   "devDependencies": {
