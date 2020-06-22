@@ -410,6 +410,77 @@
       });
     });
 
+    describe("beforeOrEqualDate", function () {
+      describe("when given two different date objects", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30);
+          this.d2 = new Date(2013, 4, 31);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.beforeOrEqualDate(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.beforeOrEqualDate(test.d2);
+            }.should.fail(
+              "expected Thu May 30 2013 not to be before or equal to Fri May 31 2013"
+            ));
+          });
+        });
+      });
+
+      describe("when given two identical date objects", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30);
+          this.d2 = new Date(2013, 4, 30);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.beforeOrEqualDate(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.beforeOrEqualDate(test.d2);
+            }.should.fail(
+              "expected Thu May 30 2013 not to be before or equal to Thu May 30 2013"
+            ));
+          });
+        });
+      });
+
+      describe("when given two identical dates but different times", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30, 17);
+          this.d2 = new Date(2013, 4, 30, 18);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.beforeOrEqualDate(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.beforeOrEqualDate(test.d2);
+            }.should.fail(
+              "expected Thu May 30 2013 not to be before or equal to Thu May 30 2013"
+            ));
+          });
+        });
+      });
+    });
+
     describe("afterDate", function () {
       describe("when given two different date objects", function () {
         beforeEach(function () {
@@ -476,6 +547,77 @@
         describe("when negated", function () {
           it("passes", function () {
             this.d1.should.not.be.afterDate(this.d2);
+          });
+        });
+      });
+    });
+
+    describe("afterOrEqualDate", function () {
+      describe("when given two different date objects", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 31);
+          this.d2 = new Date(2013, 4, 30);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.afterOrEqualDate(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.afterOrEqualDate(test.d2);
+            }.should.fail(
+              "expected Fri May 31 2013 not to be after or equal to Thu May 30 2013"
+            ));
+          });
+        });
+      });
+
+      describe("when given two identical date objects", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30);
+          this.d2 = new Date(2013, 4, 30);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.afterOrEqualDate(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.afterOrEqualDate(test.d2);
+            }.should.fail(
+              "expected Thu May 30 2013 not to be after or equal to Thu May 30 2013"
+            ));
+          });
+        });
+      });
+
+      describe("when given two identical date objects with different times", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30, 17);
+          this.d2 = new Date(2013, 4, 30, 16);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.afterOrEqualDate(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.afterOrEqualDate(test.d2);
+            }.should.fail(
+              "expected Thu May 30 2013 not to be after or equal to Thu May 30 2013"
+            ));
           });
         });
       });
@@ -609,6 +751,60 @@
       });
     });
 
+    describe("beforeOrEqualTime", function () {
+      describe("when comparing two different times", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30, 16, 5, 0);
+          this.d2 = new Date(2013, 4, 30, 16, 5, 1);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.beforeOrEqualTime(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.beforeOrEqualTime(test.d2);
+            }.should.fail(
+              "expected " +
+                chai.datetime.formatTime(this.d1) +
+                " not to be before or equal to " +
+                chai.datetime.formatTime(this.d2)
+            ));
+          });
+        });
+      });
+
+      describe("when comparing identical times", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30, 16, 5, 0);
+          this.d2 = new Date(2013, 4, 30, 16, 5, 0);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.beforeOrEqualTime(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.beforeOrEqualTime(test.d2);
+            }.should.fail(
+              "expected " +
+                chai.datetime.formatTime(this.d1) +
+                " not to be before or equal to " +
+                chai.datetime.formatTime(this.d2)
+            ));
+          });
+        });
+      });
+    });
+
     describe("afterTime", function () {
       describe("when comparing two different times", function () {
         beforeEach(function () {
@@ -658,6 +854,60 @@
         describe("when negated", function () {
           it("passes", function () {
             this.d1.should.not.be.afterTime(this.d2);
+          });
+        });
+      });
+    });
+
+    describe("afterOrEqualTime", function () {
+      describe("when comparing two different times", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30, 16, 5, 1);
+          this.d2 = new Date(2013, 4, 30, 16, 5, 0);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.afterOrEqualTime(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.afterOrEqualTime(test.d2);
+            }.should.fail(
+              "expected " +
+                chai.datetime.formatTime(this.d1) +
+                " not to be after or equal to " +
+                chai.datetime.formatTime(this.d2)
+            ));
+          });
+        });
+      });
+
+      describe("when comparing two identical times", function () {
+        beforeEach(function () {
+          this.d1 = new Date(2013, 4, 30, 16, 5, 0);
+          this.d2 = new Date(2013, 4, 30, 16, 5, 0);
+        });
+
+        it("passes", function () {
+          this.d1.should.be.afterOrEqualTime(this.d2);
+        });
+
+        describe("when negated", function () {
+          it("fails", function () {
+            var test = this;
+
+            (function () {
+              test.d1.should.not.be.afterOrEqualTime(test.d2);
+            }.should.fail(
+              "expected " +
+                chai.datetime.formatTime(this.d1) +
+                " not to be after or equal to " +
+                chai.datetime.formatTime(this.d2)
+            ));
           });
         });
       });
@@ -851,12 +1101,28 @@
         assert.notBeforeDate(this.subject, new Date(2013, 4, 30));
       });
 
+      it(".beforeOrEqualDate", function () {
+        assert.beforeOrEqualDate(this.subject, new Date(2013, 4, 31));
+      });
+
+      it(".notBeforeOrEqualDate", function () {
+        assert.notBeforeOrEqualDate(this.subject, new Date(2013, 4, 29));
+      });
+
       it(".afterDate", function () {
         assert.afterDate(this.subject, new Date(2013, 4, 29));
       });
 
       it(".notAfterDate", function () {
         assert.notAfterDate(this.subject, new Date(2013, 4, 30));
+      });
+
+      it(".afterOrEqualDate", function () {
+        assert.afterOrEqualDate(this.subject, new Date(2013, 4, 29));
+      });
+
+      it(".notAfterOrEqualDate", function () {
+        assert.notAfterOrEqualDate(this.subject, new Date(2013, 4, 31));
       });
 
       it(".withinDate", function () {
@@ -891,12 +1157,28 @@
         assert.notBeforeTime(this.subject, new Date(2013, 4, 30, 16, 5));
       });
 
+      it(".beforeOrEqualTime", function () {
+        assert.beforeOrEqualTime(this.subject, new Date(2013, 4, 30, 16, 5));
+      });
+
+      it(".notBeforeOrEqualTime", function () {
+        assert.notBeforeOrEqualTime(this.subject, new Date(2013, 4, 30, 16, 4));
+      });
+
       it(".afterTime", function () {
         assert.afterTime(this.subject, new Date(2013, 4, 30, 16, 4));
       });
 
       it(".notAfterTime", function () {
         assert.notAfterTime(this.subject, new Date(2013, 4, 30, 16, 6));
+      });
+
+      it(".afterOrEqualTime", function () {
+        assert.afterOrEqualTime(this.subject, new Date(2013, 4, 30, 16, 5));
+      });
+
+      it(".notAfterOrEqualTime", function () {
+        assert.notAfterOrEqualTime(this.subject, new Date(2013, 4, 30, 16, 6));
       });
 
       it(".withinTime", function () {
