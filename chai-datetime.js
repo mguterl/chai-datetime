@@ -193,6 +193,23 @@
     );
   });
 
+  chai.Assertion.addChainableMethod("beforeOrEqualDate", function (expected) {
+    var actual = this._obj;
+
+    this.assert(
+      chai.datetime.beforeDate(actual, expected) ||
+        chai.datetime.equalDate(actual, expected),
+      "expected " +
+        chai.datetime.formatDate(actual) +
+        " to be before or equal to " +
+        chai.datetime.formatDate(expected),
+      "expected " +
+        chai.datetime.formatDate(actual) +
+        " not to be before or equal to " +
+        chai.datetime.formatDate(expected)
+    );
+  });
+
   chai.Assertion.addChainableMethod("afterDate", function (expected) {
     var actual = this._obj;
 
@@ -205,6 +222,23 @@
       "expected " +
         chai.datetime.formatDate(actual) +
         " not to be after " +
+        chai.datetime.formatDate(expected)
+    );
+  });
+
+  chai.Assertion.addChainableMethod("afterOrEqualDate", function (expected) {
+    var actual = this._obj;
+
+    this.assert(
+      chai.datetime.afterDate(actual, expected) ||
+        chai.datetime.equalDate(actual, expected),
+      "expected " +
+        chai.datetime.formatDate(actual) +
+        " to be after or equal to " +
+        chai.datetime.formatDate(expected),
+      "expected " +
+        chai.datetime.formatDate(actual) +
+        " not to be after or equal to " +
         chai.datetime.formatDate(expected)
     );
   });
@@ -248,6 +282,23 @@
     );
   });
 
+  chai.Assertion.addChainableMethod("beforeOrEqualTime", function (expected) {
+    var actual = this._obj;
+
+    this.assert(
+      chai.datetime.beforeTime(actual, expected) ||
+        chai.datetime.equalTime(actual, expected),
+      "expected " +
+        chai.datetime.formatTime(actual) +
+        " to be before or equal to " +
+        chai.datetime.formatTime(expected),
+      "expected " +
+        chai.datetime.formatTime(actual) +
+        " not to be before or equal to " +
+        chai.datetime.formatTime(expected)
+    );
+  });
+
   chai.Assertion.addChainableMethod("afterTime", function (expected) {
     var actual = this._obj;
 
@@ -260,6 +311,23 @@
       "expected " +
         chai.datetime.formatTime(actual) +
         " not to be after " +
+        chai.datetime.formatTime(expected)
+    );
+  });
+
+  chai.Assertion.addChainableMethod("afterOrEqualTime", function (expected) {
+    var actual = this._obj;
+
+    this.assert(
+      chai.datetime.afterTime(actual, expected) ||
+        chai.datetime.equalTime(actual, expected),
+      "expected " +
+        chai.datetime.formatTime(actual) +
+        " to be after or equal to " +
+        chai.datetime.formatTime(expected),
+      "expected " +
+        chai.datetime.formatTime(actual) +
+        " not to be after or equal to " +
         chai.datetime.formatTime(expected)
     );
   });
@@ -306,12 +374,28 @@
     new chai.Assertion(val, msg).to.not.be.beforeDate(exp);
   };
 
+  assert.beforeOrEqualDate = function (val, exp, msg) {
+    new chai.Assertion(val, msg).to.be.beforeOrEqualDate(exp);
+  };
+
+  assert.notBeforeOrEqualDate = function (val, exp, msg) {
+    new chai.Assertion(val, msg).not.to.be.beforeOrEqualDate(exp);
+  };
+
   assert.afterDate = function (val, exp, msg) {
     new chai.Assertion(val, msg).to.be.afterDate(exp);
   };
 
   assert.notAfterDate = function (val, exp, msg) {
     new chai.Assertion(val, msg).not.to.be.afterDate(exp);
+  };
+
+  assert.afterOrEqualDate = function (val, exp, msg) {
+    new chai.Assertion(val, msg).to.be.afterOrEqualDate(exp);
+  };
+
+  assert.notAfterOrEqualDate = function (val, exp, msg) {
+    new chai.Assertion(val, msg).not.to.be.afterOrEqualDate(exp);
   };
 
   assert.withinDate = function (val, expFrom, expTo, msg) {
@@ -338,12 +422,28 @@
     new chai.Assertion(val, msg).not.to.be.beforeTime(exp);
   };
 
+  assert.beforeOrEqualTime = function (val, exp, msg) {
+    new chai.Assertion(val, msg).to.be.beforeOrEqualTime(exp);
+  };
+
+  assert.notBeforeOrEqualTime = function (val, exp, msg) {
+    new chai.Assertion(val, msg).not.to.be.beforeOrEqualTime(exp);
+  };
+
   assert.afterTime = function (val, exp, msg) {
     new chai.Assertion(val, msg).to.be.afterTime(exp);
   };
 
   assert.notAfterTime = function (val, exp, msg) {
     new chai.Assertion(val, msg).to.not.be.afterTime(exp);
+  };
+
+  assert.afterOrEqualTime = function (val, exp, msg) {
+    new chai.Assertion(val, msg).to.be.afterOrEqualTime(exp);
+  };
+
+  assert.notAfterOrEqualTime = function (val, exp, msg) {
+    new chai.Assertion(val, msg).not.to.be.afterOrEqualTime(exp);
   };
 
   assert.withinTime = function (val, expFrom, expTo, msg) {
