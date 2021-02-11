@@ -1181,6 +1181,10 @@
         assert.notAfterOrEqualTime(this.subject, new Date(2013, 4, 30, 16, 6));
       });
 
+      it(".closeToTime", function () {
+        assert.closeToTime(this.subject, new Date(2013, 4, 30, 16, 6), 90);
+      });
+
       it(".withinTime", function () {
         assert.withinTime(
           this.subject,
