@@ -446,6 +446,10 @@
     new chai.Assertion(val, msg).not.to.be.afterOrEqualTime(exp);
   };
 
+  assert.closeToTime = function (val, exp, delta, msg) {
+    new chai.Assertion(val, msg).to.be.closeToTime(exp, delta);
+  };
+
   assert.withinTime = function (val, expFrom, expTo, msg) {
     new chai.Assertion(val, msg).to.be.withinTime(expFrom, expTo);
   };
