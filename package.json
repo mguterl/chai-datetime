@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "husky": "^4.2.5",
+    "husky": "^8.0.3",
     "mocha": "^10.2.0",
     "nodemon": "~0.6.23",
     "prettier": "2.0.5",
