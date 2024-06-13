@@ -197,7 +197,10 @@
               (function () {
                 test.subject.should.not.be.equalTime(test.same);
               }.should.fail(
-                "expected " + test.subject + " to not equal " + test.same
+                "expected " +
+                  chai.datetime.formatTime(test.subject) +
+                  " to not equal " +
+                  chai.datetime.formatTime(test.same)
               ));
             });
           });
@@ -210,7 +213,10 @@
             (function () {
               test.subject.should.be.equalTime(test.different);
             }.should.fail(
-              "expected " + test.subject + " to equal " + test.different
+              "expected " +
+                chai.datetime.formatTime(test.subject) +
+                " to equal " +
+                chai.datetime.formatTime(test.different)
             ));
           });
 
@@ -259,9 +265,9 @@
                 );
               }.should.fail(
                 "expected " +
-                  test.subject +
+                  chai.datetime.formatTime(test.subject) +
                   " to not be within 5s of " +
-                  test.subjetPlus3seconds
+                  chai.datetime.formatTime(test.subjetPlus3seconds)
               ));
             });
           });
@@ -279,9 +285,9 @@
               );
             }.should.fail(
               "expected " +
-                test.subject +
+                chai.datetime.formatTime(test.subject) +
                 " to be within 50s of " +
-                test.different
+                chai.datetime.formatTime(test.different)
             ));
           });
 
