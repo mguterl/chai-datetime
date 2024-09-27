@@ -69,8 +69,6 @@
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   };
 
-  // assertions logic
-
   chai.datetime.equalTime = function (actual, expected) {
     return actual.getTime() == expected.getTime();
   };
@@ -93,7 +91,6 @@
   chai.datetime.equalDate = function (actual, expected) {
     return actual.toDateString() === expected.toDateString();
   };
-
 
   chai.datetime.beforeDate = function (actual, expected) {
     return chai.datetime.beforeTime(
@@ -132,8 +129,6 @@
     );
   };
 
-  // chainable interface
-
   chai.Assertion.addChainableMethod("equalTime", function (expected) {
     var actual = this._obj;
     var expectedFormatted = chai.datetime.formatTime(expected),
@@ -170,7 +165,7 @@
         deltaInSeconds +
         "s of " +
         expectedFormatted,
-      expectedFormatted + ' ± ' + deltaInSeconds + 'sec',
+      expectedFormatted + " ± " + deltaInSeconds + "sec",
       actualFormatted
     );
   });
@@ -182,7 +177,10 @@
     return this.assert(
       chai.datetime.equalDate(this._obj, expected),
       "expected " + actualDateFormatted + " to equal " + expectedDateFormatted,
-      "expected " + actualDateFormatted + " to not equal " + expectedDateFormatted,
+      "expected " +
+        actualDateFormatted +
+        " to not equal " +
+        expectedDateFormatted,
       expectedDateFormatted,
       actualDateFormatted
     );
@@ -295,14 +293,8 @@
 
     this.assert(
       chai.datetime.beforeTime(actual, expected),
-      "expected " +
-        actualFormatted +
-        " to be before " +
-        expectedFormatted,
-      "expected " +
-        actualFormatted +
-        " not to be before " +
-        expectedFormatted
+      "expected " + actualFormatted + " to be before " + expectedFormatted,
+      "expected " + actualFormatted + " not to be before " + expectedFormatted
     );
   });
 
@@ -332,14 +324,8 @@
 
     this.assert(
       chai.datetime.afterTime(actual, expected),
-      "expected " +
-        actualFormatted +
-        " to be after " +
-        expectedFormatted,
-      "expected " +
-        actualFormatted +
-        " not to be after " +
-        expectedFormatted
+      "expected " + actualFormatted + " to be after " + expectedFormatted,
+      "expected " + actualFormatted + " not to be after " + expectedFormatted
     );
   });
 
@@ -388,9 +374,6 @@
     );
   });
 
-  // "assert" interface
-
-  // Asserts
   var assert = chai.assert;
 
   assert.equalDate = function (val, exp, msg) {
