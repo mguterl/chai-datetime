@@ -1,141 +1,116 @@
-(function (plugin) {
+export function equalTime(actual, expected) {
+  return actual.getTime() == expected.getTime();
+}
+
+export function closeToTime(actual, expected, deltaInSeconds) {
   if (
-    typeof require === "function" &&
-    typeof exports === "object" &&
-    typeof module === "object"
+    (!deltaInSeconds && deltaInSeconds !== 0) ||
+    typeof deltaInSeconds !== "number"
   ) {
-    // NodeJS
-    module.exports = plugin;
-  } else if (typeof define === "function" && define.amd) {
-    // AMD
-    define(function () {
-      return plugin;
-    });
-  } else {
-    // Other environment (usually <script> tag): plug in to global chai instance directly.
-    chai.use(plugin);
-  }
-})(function (chai, utils) {
-  chai.datetime = chai.datetime || {};
-
-  function padNumber(num, length) {
-    var ret = "" + num;
-    var i = ret.length;
-
-    if (!isFinite(length)) {
-      length = 2;
-    }
-
-    for (i; i < length; i++) {
-      ret = "0" + ret;
-    }
-
-    return ret;
+    throw new chai.AssertionError(
+      "second argument of closeToTime, 'deltaInSeconds', must be a positive number"
+    );
   }
 
-  chai.datetime.getFormattedTimezone = function (timezoneInMinutes) {
-    var tz = Math.abs(timezoneInMinutes);
-    var hours = Math.floor(tz / 60);
-    var minutes = tz % 60;
-    var isAheadOfUtc = timezoneInMinutes <= 0;
+  return (
+    Math.abs(actual.getTime() - expected.getTime()) < deltaInSeconds * 1000
+  );
+}
 
-    return (
-      (isAheadOfUtc ? "+" : "-") + padNumber(hours) + ":" + padNumber(minutes)
-    );
-  };
+export function equalDate(actual, expected) {
+  return actual.toDateString() === expected.toDateString();
+}
 
-  chai.datetime.formatDate = function (date) {
-    return date.toDateString();
-  };
+export function beforeDate(actual, expected) {
+  return beforeTime(dateWithoutTime(actual), dateWithoutTime(expected));
+}
 
-  chai.datetime.formatTime = function (time) {
-    return (
-      time.toDateString() +
-      " " +
-      padNumber(time.getHours()) +
-      ":" +
-      padNumber(time.getMinutes()) +
-      ":" +
-      padNumber(time.getSeconds()) +
-      "." +
-      padNumber(time.getMilliseconds(), 3) +
-      " (" +
-      chai.datetime.getFormattedTimezone(time.getTimezoneOffset()) +
-      ")"
-    );
-  };
+export function afterDate(actual, expected) {
+  return afterTime(dateWithoutTime(actual), dateWithoutTime(expected));
+}
 
-  var dateWithoutTime = function (date) {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  };
+export function withinDate(actual, expectedFrom, expectedTo) {
+  return withinTime(
+    dateWithoutTime(actual),
+    dateWithoutTime(expectedFrom),
+    dateWithoutTime(expectedTo)
+  );
+}
 
-  chai.datetime.equalTime = function (actual, expected) {
-    return actual.getTime() == expected.getTime();
-  };
+export function beforeTime(actual, expected) {
+  return actual.getTime() < expected.getTime();
+}
 
-  chai.datetime.closeToTime = function (actual, expected, deltaInSeconds) {
-    if (
-      (!deltaInSeconds && deltaInSeconds !== 0) ||
-      typeof deltaInSeconds !== "number"
-    ) {
-      throw new chai.AssertionError(
-        "second argument of closeToTime, 'deltaInSeconds', must be a positive number"
-      );
-    }
+export function afterTime(actual, expected) {
+  return actual.getTime() > expected.getTime();
+}
 
-    return (
-      Math.abs(actual.getTime() - expected.getTime()) < deltaInSeconds * 1000
-    );
-  };
+export function withinTime(actual, expectedFrom, expectedTo) {
+  return (
+    actual.getTime() >= expectedFrom.getTime() &&
+    actual.getTime() <= expectedTo.getTime()
+  );
+}
 
-  chai.datetime.equalDate = function (actual, expected) {
-    return actual.toDateString() === expected.toDateString();
-  };
+export function formatDate(date) {
+  return date.toDateString();
+}
 
-  chai.datetime.beforeDate = function (actual, expected) {
-    return chai.datetime.beforeTime(
-      dateWithoutTime(actual),
-      dateWithoutTime(expected)
-    );
-  };
+export function formatTime(time) {
+  return (
+    time.toDateString() +
+    " " +
+    padNumber(time.getHours()) +
+    ":" +
+    padNumber(time.getMinutes()) +
+    ":" +
+    padNumber(time.getSeconds()) +
+    "." +
+    padNumber(time.getMilliseconds(), 3) +
+    " (" +
+    getFormattedTimezone(time.getTimezoneOffset()) +
+    ")"
+  );
+}
 
-  chai.datetime.afterDate = function (actual, expected) {
-    return chai.datetime.afterTime(
-      dateWithoutTime(actual),
-      dateWithoutTime(expected)
-    );
-  };
+function padNumber(num, length) {
+  var ret = "" + num;
+  var i = ret.length;
 
-  chai.datetime.withinDate = function (actual, expectedFrom, expectedTo) {
-    return chai.datetime.withinTime(
-      dateWithoutTime(actual),
-      dateWithoutTime(expectedFrom),
-      dateWithoutTime(expectedTo)
-    );
-  };
+  if (!isFinite(length)) {
+    length = 2;
+  }
 
-  chai.datetime.beforeTime = function (actual, expected) {
-    return actual.getTime() < expected.getTime();
-  };
+  for (i; i < length; i++) {
+    ret = "0" + ret;
+  }
 
-  chai.datetime.afterTime = function (actual, expected) {
-    return actual.getTime() > expected.getTime();
-  };
+  return ret;
+}
 
-  chai.datetime.withinTime = function (actual, expectedFrom, expectedTo) {
-    return (
-      actual.getTime() >= expectedFrom.getTime() &&
-      actual.getTime() <= expectedTo.getTime()
-    );
-  };
+export function getFormattedTimezone(timezoneInMinutes) {
+  var tz = Math.abs(timezoneInMinutes);
+  var hours = Math.floor(tz / 60);
+  var minutes = tz % 60;
+  var isAheadOfUtc = timezoneInMinutes <= 0;
 
+  return (
+    (isAheadOfUtc ? "+" : "-") + padNumber(hours) + ":" + padNumber(minutes)
+  );
+}
+
+function dateWithoutTime(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+export default function (chai, utils) {
   chai.Assertion.addChainableMethod("equalTime", function (expected) {
     var actual = this._obj;
-    var expectedFormatted = chai.datetime.formatTime(expected),
-      actualFormatted = chai.datetime.formatTime(actual);
+    var expectedFormatted = formatTime(expected),
+      actualFormatted = formatTime(actual);
 
     return this.assert(
-      chai.datetime.equalTime(expected, actual),
+      equalTime(expected, actual),
       "expected " + actualFormatted + " to equal " + expectedFormatted,
       "expected " + actualFormatted + " to not equal " + expectedFormatted,
       expectedFormatted,
@@ -148,11 +123,11 @@
     deltaInSeconds
   ) {
     var actual = this._obj;
-    var expectedFormatted = chai.datetime.formatTime(expected),
-      actualFormatted = chai.datetime.formatTime(this._obj);
+    var expectedFormatted = formatTime(expected),
+      actualFormatted = formatTime(this._obj);
 
     return this.assert(
-      chai.datetime.closeToTime(expected, actual, deltaInSeconds),
+      closeToTime(expected, actual, deltaInSeconds),
       "expected " +
         actualFormatted +
         " to be within " +
@@ -171,11 +146,11 @@
   });
 
   chai.Assertion.addChainableMethod("equalDate", function (expected) {
-    var expectedDateFormatted = chai.datetime.formatDate(expected),
-      actualDateFormatted = chai.datetime.formatDate(this._obj);
+    var expectedDateFormatted = formatDate(expected),
+      actualDateFormatted = formatDate(this._obj);
 
     return this.assert(
-      chai.datetime.equalDate(this._obj, expected),
+      equalDate(this._obj, expected),
       "expected " + actualDateFormatted + " to equal " + expectedDateFormatted,
       "expected " +
         actualDateFormatted +
@@ -188,11 +163,11 @@
 
   chai.Assertion.addChainableMethod("beforeDate", function (expected) {
     var actual = this._obj;
-    var expectedDateFormatted = chai.datetime.formatDate(expected),
-      actualDateFormatted = chai.datetime.formatDate(this._obj);
+    var expectedDateFormatted = formatDate(expected),
+      actualDateFormatted = formatDate(this._obj);
 
     this.assert(
-      chai.datetime.beforeDate(actual, expected),
+      beforeDate(actual, expected),
       "expected " +
         actualDateFormatted +
         " to be before " +
@@ -206,12 +181,11 @@
 
   chai.Assertion.addChainableMethod("beforeOrEqualDate", function (expected) {
     var actual = this._obj;
-    var expectedDateFormatted = chai.datetime.formatDate(expected),
-      actualDateFormatted = chai.datetime.formatDate(this._obj);
+    var expectedDateFormatted = formatDate(expected),
+      actualDateFormatted = formatDate(this._obj);
 
     this.assert(
-      chai.datetime.beforeDate(actual, expected) ||
-        chai.datetime.equalDate(actual, expected),
+      beforeDate(actual, expected) || equalDate(actual, expected),
       "expected " +
         actualDateFormatted +
         " to be before or equal to " +
@@ -225,11 +199,11 @@
 
   chai.Assertion.addChainableMethod("afterDate", function (expected) {
     var actual = this._obj;
-    var expectedDateFormatted = chai.datetime.formatDate(expected),
-      actualDateFormatted = chai.datetime.formatDate(this._obj);
+    var expectedDateFormatted = formatDate(expected),
+      actualDateFormatted = formatDate(this._obj);
 
     this.assert(
-      chai.datetime.afterDate(actual, expected),
+      afterDate(actual, expected),
       "expected " +
         actualDateFormatted +
         " to be after " +
@@ -243,12 +217,11 @@
 
   chai.Assertion.addChainableMethod("afterOrEqualDate", function (expected) {
     var actual = this._obj;
-    var expectedDateFormatted = chai.datetime.formatDate(expected),
-      actualDateFormatted = chai.datetime.formatDate(this._obj);
+    var expectedDateFormatted = formatDate(expected),
+      actualDateFormatted = formatDate(this._obj);
 
     this.assert(
-      chai.datetime.afterDate(actual, expected) ||
-        chai.datetime.equalDate(actual, expected),
+      afterDate(actual, expected) || equalDate(actual, expected),
       "expected " +
         actualDateFormatted +
         " to be after or equal to " +
@@ -265,12 +238,12 @@
     expectedTo
   ) {
     var actual = this._obj;
-    var expectedDateFromFormatted = chai.datetime.formatDate(expectedFrom),
-      expectedDateToFormatted = chai.datetime.formatDate(expectedTo),
-      actualDateFormatted = chai.datetime.formatDate(this._obj);
+    var expectedDateFromFormatted = formatDate(expectedFrom),
+      expectedDateToFormatted = formatDate(expectedTo),
+      actualDateFormatted = formatDate(this._obj);
 
     this.assert(
-      chai.datetime.withinDate(actual, expectedFrom, expectedTo),
+      withinDate(actual, expectedFrom, expectedTo),
       "expected " +
         actualDateFormatted +
         " to be within " +
@@ -288,11 +261,11 @@
 
   chai.Assertion.addChainableMethod("beforeTime", function (expected) {
     var actual = this._obj;
-    var expectedFormatted = chai.datetime.formatTime(expected),
-      actualFormatted = chai.datetime.formatTime(actual);
+    var expectedFormatted = formatTime(expected),
+      actualFormatted = formatTime(actual);
 
     this.assert(
-      chai.datetime.beforeTime(actual, expected),
+      beforeTime(actual, expected),
       "expected " + actualFormatted + " to be before " + expectedFormatted,
       "expected " + actualFormatted + " not to be before " + expectedFormatted
     );
@@ -300,12 +273,11 @@
 
   chai.Assertion.addChainableMethod("beforeOrEqualTime", function (expected) {
     var actual = this._obj;
-    var expectedFormatted = chai.datetime.formatTime(expected),
-      actualFormatted = chai.datetime.formatTime(actual);
+    var expectedFormatted = formatTime(expected),
+      actualFormatted = formatTime(actual);
 
     this.assert(
-      chai.datetime.beforeTime(actual, expected) ||
-        chai.datetime.equalTime(actual, expected),
+      beforeTime(actual, expected) || equalTime(actual, expected),
       "expected " +
         actualFormatted +
         " to be before or equal to " +
@@ -319,11 +291,11 @@
 
   chai.Assertion.addChainableMethod("afterTime", function (expected) {
     var actual = this._obj;
-    var expectedFormatted = chai.datetime.formatTime(expected),
-      actualFormatted = chai.datetime.formatTime(actual);
+    var expectedFormatted = formatTime(expected),
+      actualFormatted = formatTime(actual);
 
     this.assert(
-      chai.datetime.afterTime(actual, expected),
+      afterTime(actual, expected),
       "expected " + actualFormatted + " to be after " + expectedFormatted,
       "expected " + actualFormatted + " not to be after " + expectedFormatted
     );
@@ -331,12 +303,11 @@
 
   chai.Assertion.addChainableMethod("afterOrEqualTime", function (expected) {
     var actual = this._obj;
-    var expectedFormatted = chai.datetime.formatTime(expected),
-      actualFormatted = chai.datetime.formatTime(actual);
+    var expectedFormatted = formatTime(expected),
+      actualFormatted = formatTime(actual);
 
     this.assert(
-      chai.datetime.afterTime(actual, expected) ||
-        chai.datetime.equalTime(actual, expected),
+      afterTime(actual, expected) || equalTime(actual, expected),
       "expected " +
         actualFormatted +
         " to be after or equal to " +
@@ -353,12 +324,12 @@
     expectedTo
   ) {
     var actual = this._obj;
-    var expectedFromFormatted = chai.datetime.formatTime(expectedFrom),
-      expectedToFormatted = chai.datetime.formatTime(expectedTo),
-      actualFormatted = chai.datetime.formatTime(actual);
+    var expectedFromFormatted = formatTime(expectedFrom),
+      expectedToFormatted = formatTime(expectedTo),
+      actualFormatted = formatTime(actual);
 
     this.assert(
-      chai.datetime.withinTime(actual, expectedFrom, expectedTo),
+      withinTime(actual, expectedFrom, expectedTo),
       "expected " +
         actualFormatted +
         " to be within " +
@@ -475,4 +446,4 @@
   assert.notWithinTime = function (val, expFrom, expTo, msg) {
     new chai.Assertion(val, msg).not.to.be.withinTime(expFrom, expTo);
   };
-});
+}
